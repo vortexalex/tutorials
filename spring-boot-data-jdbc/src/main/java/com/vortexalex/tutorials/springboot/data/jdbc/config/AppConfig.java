@@ -24,10 +24,11 @@ public class AppConfig extends JdbcConfiguration {
         return DataSourceBuilder.create().build();
     }
 
-   /* @Bean
+    @Bean
     public NamedParameterJdbcOperations operations() {
         return new NamedParameterJdbcTemplate(sourceDatasource());
-    }*/
+    }
+
 
     @Bean
     public NamingStrategy namingStrategy() {
@@ -35,17 +36,17 @@ public class AppConfig extends JdbcConfiguration {
 
             @Override
             public String getTableName(Class<?> type) {
-                return "FAKE_TABLE";
+                return "vehicle";
             }
 
             @Override
             public String getQualifiedTableName(Class<?> type) {
-                return "FAKE_TABLE";
+                return "vehicle";
             }
 
             @Override
             public String getSchema() {
-                return "FAKE_SCHEMA";
+                return "fake_schema";
             }
 
         };

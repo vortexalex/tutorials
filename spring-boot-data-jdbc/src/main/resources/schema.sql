@@ -1,6 +1,8 @@
-DROP TABLE IF EXISTS VEHICLE;
+DROP TABLE IF EXISTS vehicle;
 
-CREATE TABLE vehicle (
+CREATE SCHEMA fake_schema AUTHORIZATION sa;
+
+CREATE TABLE fake_schema.vehicle (
 id INT NOT NULL PRIMARY KEY,
 license_plate VARCHAR(250) NOT NULL
 );

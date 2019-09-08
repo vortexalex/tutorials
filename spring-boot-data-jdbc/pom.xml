@@ -49,7 +49,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>spring-boot-data-jdbc-test</finalName>
+		<finalName>naming-strategy-test</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

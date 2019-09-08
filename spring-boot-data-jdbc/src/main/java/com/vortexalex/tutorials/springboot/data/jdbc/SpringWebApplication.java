@@ -26,6 +26,11 @@ public class SpringWebApplication implements CommandLineRunner {
 	@Autowired
 	private VehicleRepository vehicleRepository;
 
+	/*@Autowired
+	@Qualifier("targetJdbcTemplate")
+	private JdbcTemplate jdbcTemplate;
+	*/
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringWebApplication.class, args);
 	}
@@ -34,6 +39,33 @@ public class SpringWebApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		vehicleRepository.findAll().forEach(v -> log.info("id =" + v.getId() + ", license plate = " + v.getLicensePlate()));
+		//saveBatch(list);
+
 	}
 
+	/*
+	private void saveBatch(List<Vehicle> list) {
+		try {
+			log.info("saving batch of " + list.size() + "elements");
+			jdbcTemplate.batchUpdate(
+					"INSERT INTO vehicle (id, license_plate) values (?, ?)",
+					createBatchArgs(list)
+			);
+		} catch (Exception e) {
+			log.error("Error saving batch", e);
+		}
+	}
+	*/
+
+	private List createBatchArgs(List<Vehicle> list) {
+		List<Object> batch = new ArrayList<>();
+		list.forEach( el -> {
+			Object[] values = new Object[] {
+					el.getId(),
+					el.getLicensePlate()
+					};
+			batch.add(values);
+		});
+		return batch;
+	}
 }

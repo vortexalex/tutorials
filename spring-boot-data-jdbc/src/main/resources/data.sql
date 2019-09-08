@@ -1,1 +1,1 @@
-INSERT INTO vehicle (id, license_plate) VALUES (1, 'RR333RR');
+INSERT INTO fake_schema.vehicle (id, license_plate) VALUES (1, 'RR333RR');
