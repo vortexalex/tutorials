@@ -16,7 +16,7 @@ public class AsyncController {
     @PostMapping
     @Async
     public ResponseEntity start() {
-        log.info("start");
+        log.info("http - start");
 
         try {
             Thread.sleep(10000);
@@ -24,9 +24,9 @@ public class AsyncController {
         } catch (InterruptedException e) {
             log.warn("interrupted");
         }
-        log.info("end");
+        log.info("http - end");
 
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok().build();
     }
 }
 
