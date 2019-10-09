@@ -8,12 +8,15 @@ import org.springframework.stereotype.Component;
 public class EndService {
 
     public void call() {
+        log.info("end service - start");
 
         try {
-            Thread.sleep(4000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        log.info("end service - end");
 
     }
 }

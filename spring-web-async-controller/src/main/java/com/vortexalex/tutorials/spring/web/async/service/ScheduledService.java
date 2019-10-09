@@ -10,14 +10,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class ScheduledService {
 
-    @Scheduled(initialDelay = 3000, fixedDelay=3000)
+    @Autowired
+    private EndService endService;
+
+    @Scheduled(cron = "${job.scheduling.cronexpression}")
     public void trigger() {
         log.info("scheduled - start");
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        endService.call();
+
         log.info("scheduled - end");
     }
 }
