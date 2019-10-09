@@ -1,5 +1,6 @@
 package com.vortexalex.tutorials.spring.web.async.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.task.TaskSchedulerBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +18,17 @@ import java.util.concurrent.*;
 @Configuration
 @EnableAsync
 @EnableScheduling
+@Slf4j
 public class AppConfig implements SchedulingConfigurer {
 
     @Bean
     public Executor taskExecutor() {
-        return new ScheduledThreadPoolExecutor(1);
+        return new ScheduledThreadPoolExecutor(1, new RejectedExecutionHandler() {
+            @Override
+            public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+                log.info("rejected" + r.toString());
+            }
+        });
     }
 
     @Override
