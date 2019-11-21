@@ -1,0 +1,71 @@
+<style>
+#wrapper {
+  display: flex;
+}
+
+#left {
+  flex: 0 0 50%;
+}
+
+#right {
+  flex: 1;
+}
+</style>
+
+
+<div id="wrapper">
+
+    <div id="left" class="water-events">
+        WATER 1
+        <script>
+            var clientWebSocket = new WebSocket("ws://localhost:8080/realtime");
+            clientWebSocket.onopen = function() {
+                console.log("clientWebSocket.onopen", clientWebSocket);
+                console.log("clientWebSocket.readyState", "websocketstatus");
+                clientWebSocket.send("event-me-from-browser");
+            }
+            clientWebSocket.onclose = function(error) {
+                console.log("clientWebSocket.onclose", clientWebSocket, error);
+                events("Closing connection");
+            }
+            clientWebSocket.onerror = function(error) {
+                console.log("clientWebSocket.onerror", clientWebSocket, error);
+                events("An error occured");
+            }
+            clientWebSocket.onmessage = function(error) {
+                console.log("clientWebSocket.onmessage", clientWebSocket, error);
+                events(error.data);
+            }
+            function events(responseEvent) {
+                document.querySelector(".water-events").innerHTML += responseEvent + "<br>";
+            }
+        </script>
+    </div>
+    <div id="right" class="emv-events">
+        WATER
+        <script>
+            var soundClient = new WebSocket("ws://localhost:5000/electromagnetic/2");
+            soundClient.onopen = function() {
+                console.log("soundClient.onopen", soundClient);
+                console.log("soundClient.readyState", "websocketstatus");
+                soundClient.send("event-me-from-browser");
+            }
+            soundClient.onclose = function(error) {
+                console.log("soundClient.onclose", soundClient, error);
+                soundEvents("Closing connection");
+            }
+            soundClient.onerror = function(error) {
+                console.log("soundClient.onerror", soundClient, error);
+                soundEvents("An error occured");
+            }
+            soundClient.onmessage = function(error) {
+                console.log("soundClient.onmessage", soundClient, error);
+                soundEvents(error.data);
+            }
+            function soundEvents(responseEvent) {
+                document.querySelector(".emv-events").innerHTML += responseEvent + "<br>";
+            }
+        </script>
+
+    </div>
+</div>
